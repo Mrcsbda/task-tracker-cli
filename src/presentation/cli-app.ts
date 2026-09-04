@@ -11,7 +11,7 @@ export class CliApp {
                 AddTaskCommand.execute(args.join(' '), taskRepository)
                 break
             default:
-                console.error(`Unknown command: ${command}`)
+                console.error(`you must provide a valid command`)
                 process.exit(1)
         }
     }

@@ -7,7 +7,7 @@ export enum TaskStatus {
 export interface TaskEntityOptions {
     id: string;
     description: string;
-    status: TaskStatus;
+    status?: TaskStatus;
     createdAt?: Date;
     updatedAt?: Date;
 }
@@ -20,7 +20,14 @@ export class TaskEntity {
     public updatedAt: Date;
 
     constructor(options: TaskEntityOptions) {
-        const { id, description, status, createdAt = new Date(), updatedAt = new Date() } = options;
+        const {
+            id,
+            description,
+            status = TaskStatus.TODO,
+            createdAt = new Date(),
+            updatedAt = new Date()
+        } = options;
+
         this.id = id;
         this.description = description;
         this.status = status;

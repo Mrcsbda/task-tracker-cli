@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import { TaskDatasource } from "../../../domain/datasources/task.datasource";
+import { AddTaskDto } from '../../../domain/dtos/add-task.dto';
 import { TaskEntity } from "../../../domain/entities/task.entity";
 
 export class FileSystemDatasource implements TaskDatasource {
@@ -30,10 +31,15 @@ export class FileSystemDatasource implements TaskDatasource {
         fs.writeFileSync(this.taskFilePath, JSON.stringify(tasks, null, 2));
     }
 
-    addTask(task: TaskEntity) {
+    addTask(dto: AddTaskDto): TaskEntity {
         const tasks = this.readTasks();
+        const task = new TaskEntity({
+            id: crypto.randomUUID(),
+            description: dto.description
+        })
         tasks.push(task);
         this.saveTasks(tasks);
+        return task;
     }
 
 }
