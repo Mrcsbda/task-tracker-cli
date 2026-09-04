@@ -8,8 +8,8 @@ export interface TaskEntityOptions {
     id: string;
     description: string;
     status: TaskStatus;
-    createdAt: Date;
-    updatedAt: Date;
+    createdAt?: Date;
+    updatedAt?: Date;
 }
 
 export class TaskEntity {
@@ -28,19 +28,16 @@ export class TaskEntity {
         this.updatedAt = updatedAt;
     }
 
-    static getTaskFromJSON(json: string): TaskEntity {
-        json = !json.trim() ? '{}' : json;
-        const { id, description, status, createdAt, updatedAt } = JSON.parse(json)
+    static getTasksFromJSON(json: string): TaskEntity[] {
+        json = !json.trim() ? '[]' : json;
 
-        const task = new TaskEntity({
-            id,
-            description,
-            status,
-            createdAt: new Date(createdAt),
-            updatedAt: new Date(updatedAt)
-        });
+        const tasks = JSON.parse(json).map((obj: any) => new TaskEntity({
+            ...obj,
+            createdAt: new Date(obj.createdAt),
+            updatedAt: new Date(obj.updatedAt),
+        }));
 
-        return task;
+        return tasks;
     }
 
 }

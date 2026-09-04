@@ -1,6 +1,5 @@
-import { AddTaskDto } from "../dtos/add-task.dto";
 import { TaskEntity } from "../entities/task.entity";
 
 export abstract class TaskDatasource {
-    abstract add(dto: AddTaskDto): TaskEntity;
+    abstract addTask(task: TaskEntity): void;
 }

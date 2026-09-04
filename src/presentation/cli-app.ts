@@ -8,10 +8,11 @@ export class CliApp {
 
         switch (command) {
             case 'add':
-                AddTaskCommand.execute(args[0], taskRepository)
+                AddTaskCommand.execute(args.join(' '), taskRepository)
                 break
             default:
-                throw new Error(`Unknown command: ${command}`)
+                console.error(`Unknown command: ${command}`)
+                process.exit(1)
         }
     }
 }
