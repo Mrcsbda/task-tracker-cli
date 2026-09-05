@@ -1,6 +1,5 @@
 import { TaskRepository } from "../domain/repository/task.repository";
-import { UpdateTaskDescriptionCommand } from "./commands";
-import { AddTaskCommand } from "./commands/add-task.command";
+import { AddTaskCommand, DeleteTaskCommand, UpdateTaskDescriptionCommand } from "./commands";
 
 
 export class CliApp {
@@ -14,6 +13,11 @@ export class CliApp {
             case 'update': {
                 const [id, ...description] = args
                 UpdateTaskDescriptionCommand.execute(id, description.join(' '), taskRepository)
+            }
+                break
+            case 'delete': {
+                const [id] = args
+                DeleteTaskCommand.execute(id, taskRepository)
             }
                 break
             default:
