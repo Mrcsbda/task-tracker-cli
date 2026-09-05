@@ -1,6 +1,6 @@
-import { AddTaskDto } from "../../domain/dtos/add-task.dto";
+import { AddTaskDto } from "../../domain/dtos";
 import { TaskRepository } from "../../domain/repository/task.repository";
-import { AddTaskUseCase } from "../../domain/use-cases/add-task.use-case";
+import { AddTaskUseCase } from "../../domain/use-cases";
 
 export class AddTaskCommand {
     static execute(description: string, taskRepository: TaskRepository) {

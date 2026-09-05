@@ -1,4 +1,5 @@
 import { TaskRepository } from "../domain/repository/task.repository";
+import { UpdateTaskDescriptionCommand } from "./commands";
 import { AddTaskCommand } from "./commands/add-task.command";
 
 
@@ -9,6 +10,11 @@ export class CliApp {
         switch (command) {
             case 'add':
                 AddTaskCommand.execute(args.join(' '), taskRepository)
+                break
+            case 'update': {
+                const [id, ...description] = args
+                UpdateTaskDescriptionCommand.execute(id, description.join(' '), taskRepository)
+            }
                 break
             default:
                 console.error(`you must provide a valid command`)

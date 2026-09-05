@@ -10,5 +10,10 @@ async function main() {
     const datasource = new FileSystemDatasource();
     const taskRepository = new TaskRepositoryImplementation(datasource);
 
-    CliApp.start(taskRepository);
+    try {
+        CliApp.start(taskRepository);
+    } catch (error) {
+        console.error(error instanceof Error ? error.message : error);
+        process.exit(1);
+    }
 }
