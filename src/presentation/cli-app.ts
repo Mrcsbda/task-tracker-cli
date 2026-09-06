@@ -1,13 +1,14 @@
 import { TaskStatus } from "../domain/entities/task.entity";
 import { TaskRepository } from "../domain/repository/task.repository";
-import { AddTaskCommand, DeleteTaskCommand, UpdateTaskDescriptionCommand, UpdateTaskStatusCommand } from "./commands";
+import { AddTaskCommand, DeleteTaskCommand, ListAllTasksCommand, ListTasksByStatusCommand, UpdateTaskDescriptionCommand, UpdateTaskStatusCommand } from "./commands";
 
 enum ECommands {
     ADD = 'add',
     UPDATE = 'update',
     DELETE = 'delete',
     MARK_IN_PROGRESS = 'mark-in-progress',
-    MARK_DONE = 'mark-done'
+    MARK_DONE = 'mark-done',
+    LIST = 'list'
 }
 
 export class CliApp {
@@ -18,15 +19,17 @@ export class CliApp {
             case ECommands.ADD:
                 AddTaskCommand.execute(args.join(' '), taskRepository)
                 break
-            case ECommands.UPDATE: {
-                const [id, ...description] = args
-                UpdateTaskDescriptionCommand.execute(id, description.join(' '), taskRepository)
-            }
+            case ECommands.UPDATE:
+                {
+                    const [id, ...description] = args
+                    UpdateTaskDescriptionCommand.execute(id, description.join(' '), taskRepository)
+                }
                 break
-            case ECommands.DELETE: {
-                const [id] = args
-                DeleteTaskCommand.execute(id, taskRepository)
-            }
+            case ECommands.DELETE:
+                {
+                    const [id] = args
+                    DeleteTaskCommand.execute(id, taskRepository)
+                }
                 break
             case ECommands.MARK_IN_PROGRESS:
                 {
@@ -38,6 +41,16 @@ export class CliApp {
                 {
                     const [id] = args
                     UpdateTaskStatusCommand.execute(id, TaskStatus.DONE, taskRepository)
+                }
+                break
+            case ECommands.LIST:
+                {
+                    const [status] = args
+                    if (!status) {
+                        ListAllTasksCommand.execute(taskRepository)
+                    } else {
+                        ListTasksByStatusCommand.execute(status, taskRepository)
+                    }
                 }
                 break
             default:

@@ -1,5 +1,5 @@
 import { TaskDatasource } from "../../domain/datasources/task.datasource";
-import { DeleteTaskDto, UpdateTaskDescriptionDto, UpdateTaskStatusDto } from "../../domain/dtos";
+import { DeleteTaskDto, ListTasksDto, UpdateTaskDescriptionDto, UpdateTaskStatusDto } from "../../domain/dtos";
 import { AddTaskDto } from "../../domain/dtos/add-task.dto";
 import { TaskEntity } from "../../domain/entities/task.entity";
 import { TaskRepository } from "../../domain/repository/task.repository";
@@ -18,5 +18,9 @@ export class TaskRepositoryImplementation implements TaskRepository {
 
     deleteTask(dto: DeleteTaskDto): TaskEntity {
         return this.taskDatasource.deleteTask(dto)
+    }
+
+    listTasks(dto?: ListTasksDto): TaskEntity[] {
+        return this.taskDatasource.listTasks(dto)
     }
 }

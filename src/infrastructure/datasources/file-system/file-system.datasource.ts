@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import { TaskDatasource } from "../../../domain/datasources/task.datasource";
-import { DeleteTaskDto, UpdateTaskDescriptionDto } from '../../../domain/dtos';
+import { DeleteTaskDto, ListTasksDto, UpdateTaskDescriptionDto } from '../../../domain/dtos';
 import { AddTaskDto } from '../../../domain/dtos/add-task.dto';
 import { UpdateTaskStatusDto } from '../../../domain/dtos/update-task-status.dto';
 import { TaskEntity } from "../../../domain/entities/task.entity";
@@ -73,5 +73,16 @@ export class FileSystemDatasource implements TaskDatasource {
         const updatedTasks = tasks.filter((t) => t.id !== dto.id)
         this.saveTasks(updatedTasks);
         return task
+    }
+
+    listTasks(dto?: ListTasksDto): TaskEntity[] {
+        const tasks = this.readTasks();
+
+        if (!dto) {
+            return tasks
+        } else {
+            return tasks.filter((t) => t.status === dto.status)
+        }
+
     }
 }
