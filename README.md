@@ -6,6 +6,8 @@ database and no external dependencies.
 
 Built with TypeScript following clean architecture.
 
+Project URL: https://roadmap.sh/projects/task-tracker
+
 ## Requirements
 
 - Node.js 18 or newer
