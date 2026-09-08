@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { FileSystemDatasource } from "./infrastructure/datasources/file-system/file-system.datasource";
 import { TaskRepositoryImplementation } from "./infrastructure/repositories/task.repository.implementation";
 import { CliApp } from "./presentation/cli-app";
