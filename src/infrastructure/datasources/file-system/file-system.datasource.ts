@@ -1,4 +1,5 @@
 import * as fs from 'fs';
+import * as path from 'path';
 import { TaskDatasource } from "../../../domain/datasources/task.datasource";
 import { DeleteTaskDto, ListTasksDto, UpdateTaskDescriptionDto } from '../../../domain/dtos';
 import { AddTaskDto } from '../../../domain/dtos/add-task.dto';
@@ -7,10 +8,10 @@ import { TaskEntity } from "../../../domain/entities/task.entity";
 
 export class FileSystemDatasource implements TaskDatasource {
 
-    private readonly tasksPath: string = "tasks";
-    private readonly taskFilePath: string = `${this.tasksPath}/tasks.json`;
+    private readonly taskFilePath: string;
 
-    constructor() {
+    constructor(private readonly tasksPath: string = "tasks") {
+        this.taskFilePath = path.join(this.tasksPath, 'tasks.json');
         this.createTaskFile();
     }
 
