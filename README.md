@@ -1,4 +1,4 @@
-# task-cli
+# task tracker cli
 
 A command line task tracker. Add, update and track what you need to do, what
 you are working on and what you have finished — stored as plain JSON, no
